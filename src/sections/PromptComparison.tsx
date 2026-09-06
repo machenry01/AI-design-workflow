@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { useReveal } from '@/hooks/useReveal';
-import { ChevronDown } from 'lucide-react';
 
 const CONCEPTS = ['CONTEXT', 'PERSPECTIVE', 'CONSTRAINTS', 'EVALUATION', 'ASSUMPTIONS', 'ITERATION'];
 
@@ -20,20 +18,17 @@ Do not recommend solutions until the underlying problem has been established.`;
 
 export default function PromptComparison() {
   const { ref, visible } = useReveal<HTMLDivElement>();
-  const [showStructured, setShowStructured] = useState(false);
 
   return (
     <section className="relative grain grain-light bg-ink text-white py-20 md:py-32 overflow-hidden">
-      {/* Ambient glow */}
       <div
         className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(75,88,255,0.1) 0%, transparent 70%)' }}
       />
 
       <div ref={ref} className="relative max-w-[1300px] mx-auto px-5 md:px-8">
-        {/* Section label */}
-        <div className="text-center mb-12">
-          <span className={`text-xs uppercase tracking-[0.2em] text-white/40 font-semibold reveal-up ${visible ? 'is-visible' : ''}`}>
+        <div className={`text-center mb-12 section-reveal ${visible ? 'is-visible' : ''}`}>
+          <span className="text-xs uppercase tracking-[0.2em] text-white/40 font-semibold">
             The "Oh, I Get It" Moment
           </span>
         </div>
@@ -41,7 +36,7 @@ export default function PromptComparison() {
         {/* Comparison */}
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 mb-16">
           {/* Generic prompt */}
-          <div className={`prompt-card reveal-up ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '100ms' }}>
+          <div className={`section-reveal ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '100ms' }}>
             <div className="border border-white/10 rounded-2xl p-6 md:p-8 bg-white/[0.03] h-full">
               <div className="flex items-center gap-2 mb-5">
                 <div className="w-2 h-2 rounded-full bg-white/20" />
@@ -52,7 +47,6 @@ export default function PromptComparison() {
               <p className="text-lg md:text-xl text-white/50 font-medium italic leading-relaxed">
                 "Give me ideas for improving this landing page."
               </p>
-              {/* Generic response mock */}
               <div className="mt-6 space-y-2">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="flex items-start gap-2">
@@ -72,9 +66,8 @@ export default function PromptComparison() {
           </div>
 
           {/* Structured prompt */}
-          <div className={`prompt-card reveal-up ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '300ms' }}>
+          <div className={`section-reveal ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '200ms' }}>
             <div className="border border-electric/30 rounded-2xl p-6 md:p-8 bg-electric/[0.06] h-full relative overflow-hidden">
-              {/* Glow */}
               <div
                 className="absolute -top-20 -right-20 w-60 h-60 rounded-full blur-[80px] pointer-events-none"
                 style={{ background: 'radial-gradient(circle, rgba(75,88,255,0.15) 0%, transparent 70%)' }}
@@ -104,12 +97,11 @@ export default function PromptComparison() {
         </div>
 
         {/* Concepts */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {CONCEPTS.map((concept, i) => (
+        <div className={`flex flex-wrap justify-center gap-3 mb-12 section-reveal ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '300ms' }}>
+          {CONCEPTS.map((concept) => (
             <div
               key={concept}
-              className={`word-reveal px-4 py-2 rounded-full border border-electric/30 bg-electric/10 text-sm font-semibold text-electric tracking-wide ${visible ? 'is-visible' : ''}`}
-              style={{ transitionDelay: visible ? `${500 + i * 80}ms` : '0ms' }}
+              className="px-4 py-2 rounded-full border border-electric/30 bg-electric/10 text-sm font-semibold text-electric tracking-wide"
             >
               {concept}
             </div>
@@ -117,28 +109,18 @@ export default function PromptComparison() {
         </div>
 
         {/* Headline */}
-        <div className="text-center max-w-3xl mx-auto">
+        <div className={`text-center max-w-3xl mx-auto section-reveal ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '400ms' }}>
           <h2
             className="font-bold tracking-tight"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)', lineHeight: '1.0', letterSpacing: '-0.02em' }}
           >
-            <span className={`word-reveal ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '1000ms' }}>
-              IT'S NOT ABOUT
-            </span>{' '}
-            <span className={`word-reveal ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '1080ms' }}>
-              WRITING LONGER PROMPTS.
-            </span>
+            IT'S NOT ABOUT WRITING LONGER PROMPTS.
           </h2>
           <h2
             className="font-bold tracking-tight text-electric mt-2"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)', lineHeight: '1.0', letterSpacing: '-0.02em' }}
           >
-            <span className={`word-reveal ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '1200ms' }}>
-              IT'S ABOUT
-            </span>{' '}
-            <span className={`word-reveal ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '1280ms' }}>
-              THINKING BETTER BEFORE YOU WRITE THEM.
-            </span>
+            IT'S ABOUT THINKING BETTER BEFORE YOU WRITE THEM.
           </h2>
         </div>
       </div>

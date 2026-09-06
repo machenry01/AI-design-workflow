@@ -16,28 +16,16 @@ export default function Solution() {
           <div className="flex justify-center">
             <BookMockup className="scale-90" />
           </div>
-          <div>
+          <div className={`section-reveal ${introVisible ? 'is-visible' : ''}`}>
             <h2
-              className={`font-bold tracking-tight text-ink reveal-up ${introVisible ? 'is-visible' : ''}`}
-              style={{
-                fontSize: 'clamp(2.25rem, 5vw, 4.5rem)',
-                lineHeight: '1.0',
-                letterSpacing: '-0.02em',
-                opacity: introVisible ? 1 : undefined,
-                transform: introVisible ? undefined : undefined,
-              }}
+              className="font-bold tracking-tight text-ink"
+              style={{ fontSize: 'clamp(2.25rem, 5vw, 4.5rem)', lineHeight: '1.0', letterSpacing: '-0.02em' }}
             >
-              <span className={introVisible ? 'is-visible' : ''} style={{ display: 'block' }}>
-                A BETTER WAY
-              </span>
-              <span className={introVisible ? 'is-visible' : ''} style={{ display: 'block', transitionDelay: '100ms' }}>
-                TO WORK WITH <span className="text-electric">AI.</span>
-              </span>
+              A BETTER WAY
+              <br />
+              TO WORK WITH <span className="text-electric">AI.</span>
             </h2>
-            <p
-              className={`mt-6 text-lg md:text-xl text-ink/60 font-medium leading-relaxed max-w-xl reveal-up ${introVisible ? 'is-visible' : ''}`}
-              style={{ transitionDelay: '250ms' }}
-            >
+            <p className="mt-6 text-lg md:text-xl text-ink/60 font-medium leading-relaxed max-w-xl">
               The AI Design Workflow is a practical field guide for designers who already know how to
               design — and want to learn how to think alongside AI without handing over their judgment.
             </p>
@@ -47,19 +35,19 @@ export default function Solution() {
         {/* Workflow visualization */}
         <div ref={wfRef} className="mt-8">
           <div className="text-center mb-12">
-            <span className={`text-xs uppercase tracking-[0.2em] text-ink/40 font-semibold reveal-up ${wfVisible ? 'is-visible' : ''}`}>
+            <span className={`text-xs uppercase tracking-[0.2em] text-ink/40 font-semibold section-reveal ${wfVisible ? 'is-visible' : ''}`}>
               The Ten-Stage Workflow
             </span>
           </div>
 
-          {/* Row 1: FRAME → RESEARCH → EXPLORE → DEFINE → BUILD */}
+          {/* Row 1 */}
           <div className="flex flex-col items-center gap-0">
             <div className="flex flex-wrap md:flex-nowrap justify-center items-center gap-3 md:gap-0">
               {WORKFLOW_ROW1.map((stage, i) => (
                 <div key={stage} className="flex items-center">
                   <div
                     className={`workflow-node ${wfVisible ? 'is-visible' : ''}`}
-                    style={{ transitionDelay: `${i * 150}ms` }}
+                    style={{ transitionDelay: `${i * 80}ms` }}
                   >
                     <div className="flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 rounded-xl border border-ink/10 bg-warm-white hover:border-electric/30 hover:bg-electric/5 transition-colors">
                       <span className="text-xs font-bold text-electric tabular-nums">
@@ -77,7 +65,7 @@ export default function Solution() {
                           className={`workflow-line ${wfVisible ? 'is-visible' : ''}`}
                           x1="0" y1="6" x2="28" y2="6"
                           stroke="#4B58FF" strokeWidth="1.5"
-                          style={{ transitionDelay: `${i * 150 + 100}ms` }}
+                          style={{ transitionDelay: `${i * 80 + 60}ms` }}
                         />
                         <path d="M28 6 L24 3 M28 6 L24 9" stroke="#4B58FF" strokeWidth="1.5" fill="none" />
                       </svg>
@@ -94,19 +82,19 @@ export default function Solution() {
                   className={`workflow-line ${wfVisible ? 'is-visible' : ''}`}
                   x1="6" y1="0" x2="6" y2="34"
                   stroke="#4B58FF" strokeWidth="1.5"
-                  style={{ transitionDelay: '750ms' }}
+                  style={{ transitionDelay: '450ms' }}
                 />
                 <path d="M6 34 L3 30 M6 34 L9 30" stroke="#4B58FF" strokeWidth="1.5" fill="none" />
               </svg>
             </div>
 
-            {/* Row 2: CRITIQUE → REFINE → PRESENT → DELIVER → LEARN */}
+            {/* Row 2 */}
             <div className="flex flex-wrap md:flex-nowrap justify-center items-center gap-3 md:gap-0">
               {WORKFLOW_ROW2.map((stage, i) => (
                 <div key={stage} className="flex items-center">
                   <div
                     className={`workflow-node ${wfVisible ? 'is-visible' : ''}`}
-                    style={{ transitionDelay: `${900 + i * 150}ms` }}
+                    style={{ transitionDelay: `${550 + i * 80}ms` }}
                   >
                     <div className="flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 rounded-xl border border-ink/10 bg-warm-white hover:border-electric/30 hover:bg-electric/5 transition-colors">
                       <span className="text-xs font-bold text-electric tabular-nums">
@@ -124,7 +112,7 @@ export default function Solution() {
                           className={`workflow-line ${wfVisible ? 'is-visible' : ''}`}
                           x1="0" y1="6" x2="28" y2="6"
                           stroke="#4B58FF" strokeWidth="1.5"
-                          style={{ transitionDelay: `${900 + i * 150 + 100}ms` }}
+                          style={{ transitionDelay: `${550 + i * 80 + 60}ms` }}
                         />
                         <path d="M28 6 L24 3 M28 6 L24 9" stroke="#4B58FF" strokeWidth="1.5" fill="none" />
                       </svg>

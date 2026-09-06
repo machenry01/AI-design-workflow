@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 
+const COVER_ASPECT = '1630 / 2030';
+
 export default function BookMockup({ className = '' }: { className?: string }) {
   const sceneRef = useRef<HTMLDivElement>(null);
   const bookRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
+    // Skip mouse-reactive 3D on touch/coarse-pointer devices for performance
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
     const scene = sceneRef.current;
     const book = bookRef.current;
     if (!scene || !book) return;
@@ -24,10 +29,10 @@ export default function BookMockup({ className = '' }: { className?: string }) {
         const shadowX = x * 20;
         const shadowY = y * 10 + 20;
         book.style.transform = `rotateY(${rotY}deg) rotateX(${rotX}deg)`;
-        const shadow = scene.querySelector('.book-shadow') as HTMLDivElement;
+        const shadow = scene.querySelector('.book-shadow') as HTMLDivElement | null;
         if (shadow) {
           shadow.style.transform = `translateX(${shadowX}px) translateY(${shadowY}px) scale(0.95)`;
-          shadow.style.opacity = `${0.3 + Math.abs(x) * 0.15}`;
+          shadow.style.opacity = String(0.3 + Math.abs(x) * 0.15);
         }
       });
     };
@@ -35,7 +40,7 @@ export default function BookMockup({ className = '' }: { className?: string }) {
     const handleMouseLeave = () => {
       cancelAnimationFrame(rafId);
       book.style.transform = 'rotateY(8deg) rotateX(0deg)';
-      const shadow = scene.querySelector('.book-shadow') as HTMLDivElement;
+      const shadow = scene.querySelector('.book-shadow') as HTMLDivElement | null;
       if (shadow) {
         shadow.style.transform = 'translateX(0) translateY(20px) scale(0.95)';
         shadow.style.opacity = '0.3';
@@ -67,12 +72,16 @@ export default function BookMockup({ className = '' }: { className?: string }) {
         onMouseLeave={() => setIsHovering(false)}
       >
         <img
-          src="/images/The-AI-Design-Workflow-Cover.png"
+          src="/images/cover-md.webp"
+          srcSet="/images/cover-sm.webp 500w, /images/cover-md.webp 800w, /images/cover-lg.webp 1200w"
+          sizes="(max-width: 768px) 50vw, 28vw"
           alt="The AI Design Workflow field guide cover"
-          className="book-cover-face block object-contain rounded-r-[3px] rounded-l-[1px]"
+          width={1630}
+          height={2030}
+          className="book-cover-face block object-cover rounded-r-[3px] rounded-l-[1px]"
           style={{
             width: 'clamp(220px, 28vw, 340px)',
-            aspectRatio: '1365 / 1536',
+            aspectRatio: COVER_ASPECT,
             boxShadow: isHovering
               ? '0 30px 80px -12px rgba(75,88,255,0.25), 0 20px 60px -20px rgba(0,0,0,0.5)'
               : '0 20px 60px -20px rgba(0,0,0,0.4)',

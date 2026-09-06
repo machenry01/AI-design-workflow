@@ -30,7 +30,7 @@ const FAQS = [
   },
 ];
 
-function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
+function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border-b border-ink/10">
@@ -41,11 +41,12 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
         <span className="text-base md:text-lg font-semibold text-ink tracking-tight">{q}</span>
         <ChevronDown
           size={20}
-          className={`text-ink/40 shrink-0 transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
+          className="text-ink/40 shrink-0 transition-transform duration-300"
+          style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
         />
       </button>
       <div
-        className="overflow-hidden transition-all duration-400 ease-out"
+        className="overflow-hidden transition-all duration-300 ease-out"
         style={{ maxHeight: open ? '200px' : '0px', opacity: open ? 1 : 0 }}
       >
         <p className="pb-5 text-base text-ink/55 leading-relaxed max-w-2xl">{a}</p>
@@ -60,25 +61,25 @@ export default function FAQ() {
   return (
     <section id="faq" className="relative grain bg-warm-white py-20 md:py-32 overflow-hidden">
       <div ref={ref} className="relative max-w-[900px] mx-auto px-5 md:px-8">
-        <div className="text-center mb-12">
-          <span className={`text-xs uppercase tracking-[0.2em] text-ink/40 font-semibold reveal-up ${visible ? 'is-visible' : ''}`}>
+        <div className={`text-center mb-12 section-reveal ${visible ? 'is-visible' : ''}`}>
+          <span className="text-xs uppercase tracking-[0.2em] text-ink/40 font-semibold">
             FAQ
           </span>
           <h2
-            className={`mt-3 font-bold tracking-tight text-ink reveal-up ${visible ? 'is-visible' : ''}`}
-            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', lineHeight: '1.0', letterSpacing: '-0.02em', transitionDelay: '100ms' }}
+            className="mt-3 font-bold tracking-tight text-ink"
+            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)', lineHeight: '1.0', letterSpacing: '-0.02em' }}
           >
             QUESTIONS
           </h2>
         </div>
 
-        <div className={`reveal-up ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '200ms' }}>
+        <div className={`section-reveal ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '150ms' }}>
           {FAQS.map((faq, i) => (
-            <FAQItem key={i} q={faq.q} a={faq.a} index={i} />
+            <FAQItem key={i} q={faq.q} a={faq.a} />
           ))}
         </div>
 
-        <div className={`mt-12 text-center reveal-up ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '400ms' }}>
+        <div className={`mt-12 text-center section-reveal ${visible ? 'is-visible' : ''}`} style={{ transitionDelay: '300ms' }}>
           <CTAButton size="lg" />
         </div>
       </div>

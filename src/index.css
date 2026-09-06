@@ -66,35 +66,13 @@ body {
   backface-visibility: hidden;
 }
 
-/* Reveal animations */
-.reveal-up {
+/* Simplified section reveal — one transition per section entrance */
+.section-reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.reveal-up.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.reveal-scale {
-  opacity: 0;
-  transform: scale(0.96);
-  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.reveal-scale.is-visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Word stagger for headlines */
-.word-reveal {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(0.3em);
-  transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.word-reveal.is-visible {
+.section-reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -103,7 +81,7 @@ body {
 .workflow-line {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  transition: stroke-dashoffset 1.4s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: stroke-dashoffset 1s cubic-bezier(0.65, 0, 0.35, 1);
 }
 .workflow-line.is-visible {
   stroke-dashoffset: 0;
@@ -111,8 +89,8 @@ body {
 
 .workflow-node {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .workflow-node.is-visible {
   opacity: 1;
@@ -136,24 +114,21 @@ body {
   transform: translateX(4px);
 }
 
-/* Prompt comparison */
-.prompt-card {
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
-}
-
-/* Page preview hover */
-.page-preview {
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
-}
-.page-preview:hover {
-  transform: scale(1.04) translateY(-6px);
-  z-index: 10;
+/* Page preview hover — desktop only */
+@media (hover: hover) {
+  .page-preview {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+  }
+  .page-preview:hover {
+    transform: scale(1.04) translateY(-6px);
+    z-index: 10;
+  }
 }
 
 /* Sticky bar slide */
 .sticky-cta {
   transform: translateY(120%);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .sticky-cta.is-visible {
   transform: translateY(0);
@@ -164,7 +139,7 @@ body {
   transition: padding 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Marquee for workflow */
+/* Drift animations — disabled on mobile for performance */
 @keyframes drift {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-20px) rotate(2deg); }
@@ -199,3 +174,58 @@ body {
 /* Hide scrollbar for mobile menu */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ===== Mobile performance optimizations ===== */
+@media (max-width: 768px) {
+  /* Disable continuous drift animations on mobile */
+  .drift, .drift2 {
+    animation: none;
+  }
+
+  /* Simplify book 3D on mobile — remove perspective overhead */
+  .book-scene {
+    perspective: none;
+  }
+  .book-3d {
+    transform: rotateY(8deg) rotateX(0deg) !important;
+    transition: box-shadow 0.4s ease;
+  }
+
+  /* Reduce blur radius for ambient glows */
+  .blur-\[120px\] { blur-radius: 60px; }
+  .blur-\[140px\] { blur-radius: 70px; }
+  .blur-\[100px\] { blur-radius: 50px; }
+  .blur-2xl { --tw-blur: blur(20px); }
+}
+
+/* ===== Prefers-reduced-motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .section-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .workflow-node {
+    opacity: 1;
+    transform: none;
+  }
+
+  .workflow-line {
+    stroke-dashoffset: 0;
+  }
+
+  .drift, .drift2, .subtle-pulse {
+    animation: none;
+  }
+
+  .book-3d {
+    transform: rotateY(8deg) rotateX(0deg) !important;
+  }
+}
