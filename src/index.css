@@ -51,8 +51,8 @@ body {
 
 /* Book 3D */
 .book-scene {
-  perspective: 1800px;
-  perspective-origin: 50% 40%;
+  perspective: 1400px;
+  perspective-origin: 50% 45%;
 }
 
 .book-3d {
@@ -63,6 +63,15 @@ body {
 
 .book-cover-face {
   transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Book depth faces */
+.book-back-cover,
+.book-spine,
+.book-fore-edge,
+.book-tail-edge,
+.book-top-edge {
   backface-visibility: hidden;
 }
 
@@ -182,9 +191,9 @@ body {
     animation: none;
   }
 
-  /* Simplify book 3D on mobile — remove perspective overhead */
+  /* Lighter perspective on mobile but still show 3D depth */
   .book-scene {
-    perspective: none;
+    perspective: 900px;
   }
   .book-3d {
     transform: rotateY(8deg) rotateX(0deg) !important;
