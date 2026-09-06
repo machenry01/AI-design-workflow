@@ -49,7 +49,24 @@ body {
   opacity: 0.06;
 }
 
-/* Book 3D */
+/* ===== Hero animations — CSS keyframes, no JS dependency ===== */
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes heroSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.hero-fade-in {
+  opacity: 0;
+  animation: heroFadeIn 0.5s ease forwards;
+}
+.hero-slide-up {
+  animation: heroSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ===== Book 3D ===== */
 .book-scene {
   perspective: 1400px;
   perspective-origin: 50% 45%;
@@ -66,7 +83,6 @@ body {
   backface-visibility: hidden;
 }
 
-/* Book depth faces */
 .book-back-cover,
 .book-spine,
 .book-fore-edge,
@@ -75,7 +91,7 @@ body {
   backface-visibility: hidden;
 }
 
-/* Simplified section reveal — one transition per section entrance */
+/* ===== Scroll reveal — content visible by default if JS never runs ===== */
 .section-reveal {
   opacity: 0;
   transform: translateY(16px);
@@ -84,6 +100,12 @@ body {
 .section-reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* If JS never adds .js-enabled, content is visible immediately */
+html:not(.js-enabled) .section-reveal {
+  opacity: 1;
+  transform: none;
 }
 
 /* Workflow line draw */
@@ -95,6 +117,9 @@ body {
 .workflow-line.is-visible {
   stroke-dashoffset: 0;
 }
+html:not(.js-enabled) .workflow-line {
+  stroke-dashoffset: 0;
+}
 
 .workflow-node {
   opacity: 0;
@@ -104,6 +129,10 @@ body {
 .workflow-node.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+html:not(.js-enabled) .workflow-node {
+  opacity: 1;
+  transform: none;
 }
 
 /* CTA button */
@@ -186,12 +215,10 @@ body {
 
 /* ===== Mobile performance optimizations ===== */
 @media (max-width: 768px) {
-  /* Disable continuous drift animations on mobile */
   .drift, .drift2 {
     animation: none;
   }
 
-  /* Lighter perspective on mobile but still show 3D depth */
   .book-scene {
     perspective: 900px;
   }
@@ -200,11 +227,18 @@ body {
     transition: box-shadow 0.4s ease;
   }
 
-  /* Reduce blur radius for ambient glows */
-  .blur-\[120px\] { blur-radius: 60px; }
-  .blur-\[140px\] { blur-radius: 70px; }
-  .blur-\[100px\] { blur-radius: 50px; }
-  .blur-2xl { --tw-blur: blur(20px); }
+  /* Disable grain overlay on mobile — feTurbulence is expensive */
+  .grain::after,
+  .grain-light::after {
+    display: none;
+  }
+
+  /* Replace large blur glows with simpler semi-transparent fills */
+  .blur-\[120px\] { filter: blur(40px); }
+  .blur-\[140px\] { filter: blur(40px); }
+  .blur-\[100px\] { filter: blur(30px); }
+  .blur-\[80px\] { filter: blur(25px); }
+  .blur-2xl { filter: blur(16px); }
 }
 
 /* ===== Prefers-reduced-motion ===== */
@@ -232,6 +266,16 @@ body {
 
   .drift, .drift2, .subtle-pulse {
     animation: none;
+  }
+
+  .hero-fade-in {
+    opacity: 1;
+    animation: none;
+  }
+
+  .hero-slide-up {
+    animation: none;
+    transform: none;
   }
 
   .book-3d {

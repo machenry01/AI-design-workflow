@@ -1,15 +1,8 @@
-import { useEffect, useState } from 'react';
 import BookMockup from '@/components/BookMockup';
 import CTAButton from '@/components/CTAButton';
 import { PRICE } from '@/lib/config';
 
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <section id="hero" className="relative grain overflow-hidden bg-warm-white pt-32 pb-16 md:pt-36 md:pb-24">
       <div className="absolute inset-0 pointer-events-none">
@@ -32,8 +25,8 @@ export default function Hero() {
           {/* LEFT */}
           <div className="order-2 lg:order-1">
             <div
-              className="flex items-center gap-3 mb-6 transition-opacity duration-500"
-              style={{ opacity: mounted ? 1 : 0 }}
+              className="flex items-center gap-3 mb-6 hero-fade-in"
+              style={{ animationDelay: '0ms' }}
             >
               <div className="w-2 h-2 rounded-full bg-electric subtle-pulse" />
               <span className="text-xs uppercase tracking-[0.2em] text-ink/50 font-medium">
@@ -46,33 +39,27 @@ export default function Hero() {
               style={{ fontSize: 'clamp(2.75rem, 7vw, 6rem)', lineHeight: '0.95', letterSpacing: '-0.03em' }}
             >
               <div className="overflow-hidden">
-                <div
-                  className="transition-transform duration-600 ease-out"
-                  style={{ transform: mounted ? 'translateY(0)' : 'translateY(100%)' }}
-                >
+                <div className="hero-slide-up" style={{ animationDelay: '0ms' }}>
                   AI ISN'T THE DESIGNER.
                 </div>
               </div>
               <div className="overflow-hidden">
-                <div
-                  className="transition-transform duration-600 ease-out"
-                  style={{ transform: mounted ? 'translateY(0)' : 'translateY(100%)', transitionDelay: '100ms' }}
-                >
+                <div className="hero-slide-up" style={{ animationDelay: '100ms' }}>
                   YOU <span className="text-electric">ARE.</span>
                 </div>
               </div>
             </h1>
 
             <p
-              className="mt-6 text-sub text-ink/70 font-medium max-w-xl transition-opacity duration-500"
-              style={{ opacity: mounted ? 1 : 0, transitionDelay: '200ms' }}
+              className="mt-6 text-sub text-ink/70 font-medium max-w-xl hero-fade-in"
+              style={{ animationDelay: '200ms' }}
             >
               A practical field guide to thinking, prompting and working better with AI as a designer.
             </p>
 
             <p
-              className="mt-4 text-base text-ink/55 leading-relaxed max-w-xl transition-opacity duration-500"
-              style={{ opacity: mounted ? 1 : 0, transitionDelay: '300ms' }}
+              className="mt-4 text-base text-ink/55 leading-relaxed max-w-xl hero-fade-in"
+              style={{ animationDelay: '300ms' }}
             >
               AI can generate ideas, explore directions, critique work and accelerate production. But
               knowing what to ask, what to reject and what deserves another iteration is still your job.
@@ -80,8 +67,8 @@ export default function Hero() {
             </p>
 
             <div
-              className="mt-8 transition-opacity duration-500"
-              style={{ opacity: mounted ? 1 : 0, transitionDelay: '400ms' }}
+              className="mt-8 hero-fade-in"
+              style={{ animationDelay: '400ms' }}
             >
               <CTAButton
                 label={`GET THE AI DESIGN WORKFLOW — ${PRICE}`}
@@ -91,8 +78,8 @@ export default function Hero() {
             </div>
 
             <div
-              className="mt-4 flex items-center gap-4 text-sm text-ink/45 transition-opacity duration-500"
-              style={{ opacity: mounted ? 1 : 0, transitionDelay: '500ms' }}
+              className="mt-4 flex items-center gap-4 text-sm text-ink/45 hero-fade-in"
+              style={{ animationDelay: '500ms' }}
             >
               <span className="flex items-center gap-1.5">
                 <span className="w-1 h-1 rounded-full bg-ink/30" />
@@ -106,10 +93,7 @@ export default function Hero() {
           </div>
 
           {/* RIGHT — Book */}
-          <div
-            className="order-1 lg:order-2 flex justify-center transition-opacity duration-700"
-            style={{ opacity: mounted ? 1 : 0 }}
-          >
+          <div className="order-1 lg:order-2 flex justify-center hero-fade-in" style={{ animationDelay: '100ms' }}>
             <BookMockup />
           </div>
         </div>

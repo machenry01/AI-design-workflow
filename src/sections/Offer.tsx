@@ -17,7 +17,7 @@ export default function Offer() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Book */}
           <div className={`flex justify-center section-reveal ${visible ? 'is-visible' : ''}`}>
-            <BookMockup className="scale-100 md:scale-110" />
+            <BookMockup className="scale-100 md:scale-110" lazy />
           </div>
 
           {/* Offer */}

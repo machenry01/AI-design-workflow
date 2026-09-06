@@ -14,7 +14,7 @@ export default function Solution() {
         {/* Book + intro */}
         <div ref={introRef} className="grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-center mb-16 md:mb-24">
           <div className="flex justify-center">
-            <BookMockup className="scale-90" />
+            <BookMockup className="scale-90" lazy />
           </div>
           <div className={`section-reveal ${introVisible ? 'is-visible' : ''}`}>
             <h2

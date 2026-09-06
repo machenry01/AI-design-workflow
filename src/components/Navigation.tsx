@@ -14,7 +14,15 @@ export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 40);
+        ticking = false;
+      });
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -24,17 +32,15 @@ export default function Navigation() {
       <nav
         className={`nav-bar fixed top-0 left-0 right-0 z-50 ${
           scrolled
-            ? 'bg-warm-white/85 backdrop-blur-md py-3 shadow-[0_1px_0_rgba(0,0,0,0.06)]'
+            ? 'bg-warm-white/95 md:bg-warm-white/85 py-3 shadow-[0_1px_0_rgba(0,0,0,0.06)] md:backdrop-blur-md'
             : 'bg-transparent py-5'
         }`}
       >
         <div className="max-w-[1400px] mx-auto px-5 md:px-8 flex items-center justify-between gap-4">
-          {/* Logo */}
           <a href="#top" className="text-sm font-bold tracking-tight text-ink whitespace-nowrap">
             THE AI DESIGN WORKFLOW
           </a>
 
-          {/* Center nav */}
           <div className="hidden lg:flex items-center gap-7">
             {NAV_LINKS.map((link) => (
               <a
@@ -47,7 +53,6 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* CTA */}
           <div className="hidden lg:block">
             <a
               href={SELAR_URL}
@@ -59,7 +64,6 @@ export default function Navigation() {
             </a>
           </div>
 
-          {/* Mobile menu button */}
           <button
             className="lg:hidden p-2 -mr-2 text-ink"
             onClick={() => setMenuOpen(true)}
@@ -70,7 +74,6 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {/* Mobile menu overlay */}
       {menuOpen && (
         <div className="fixed inset-0 z-[60] lg:hidden bg-warm-white flex flex-col">
           <div className="flex items-center justify-between px-5 py-5 border-b border-ink/10">
