@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { SELAR_URL, PRICE } from '@/lib/config';
+import { trackInitiateCheckout } from '@/lib/pixel';
 
 interface CTAButtonProps {
   label?: string;
@@ -34,6 +35,7 @@ export default function CTAButton({
       href={SELAR_URL}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={trackInitiateCheckout}
       className={`cta-btn inline-flex items-center gap-2 rounded-xl font-semibold tracking-tight ${sizes[size]} ${variants[variant]} ${className}`}
     >
       <span>{label}</span>

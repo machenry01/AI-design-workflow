@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { SELAR_URL, PRICE } from '@/lib/config';
+import { trackInitiateCheckout } from '@/lib/pixel';
 
 const NAV_LINKS = [
   { label: 'THE PROBLEM', href: '#problem' },
@@ -58,6 +59,7 @@ export default function Navigation() {
               href={SELAR_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={trackInitiateCheckout}
               className="cta-btn inline-flex items-center gap-2 rounded-lg bg-electric px-5 py-2.5 text-sm font-semibold text-white hover:bg-electric-dark"
             >
               GET THE GUIDE — {PRICE}
@@ -99,6 +101,7 @@ export default function Navigation() {
               href={SELAR_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={trackInitiateCheckout}
               className="cta-btn flex items-center justify-center gap-2 rounded-xl bg-electric px-6 py-4 text-base font-semibold text-white"
             >
               GET THE GUIDE — {PRICE}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { SELAR_URL, PRICE } from '@/lib/config';
+import { trackInitiateCheckout } from '@/lib/pixel';
 
 export default function StickyCTA() {
   const [visible, setVisible] = useState(false);
@@ -42,6 +43,7 @@ export default function StickyCTA() {
             href={SELAR_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={trackInitiateCheckout}
             className="cta-btn inline-flex items-center gap-2 rounded-lg bg-electric px-5 md:px-6 py-2.5 md:py-3 text-sm font-semibold text-white hover:bg-electric-dark whitespace-nowrap"
           >
             <span>GET THE GUIDE</span>
